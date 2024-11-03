@@ -12,7 +12,7 @@ new class extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect('/login', navigate: true);
     }
 }; ?>
 
@@ -20,7 +20,7 @@ new class extends Component
 
 <div class="signinandreserve">
     @auth
-    <button wire:click="logout" class="w-full text-start !bg-transparent">
+    <button wire:click="logout" class="!w-full !text-start !bg-transparent">
         <x-dropdown-link>
             {{ __('Log Out') }}
         </x-dropdown-link>

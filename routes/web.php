@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
+
+
 Route::view('/', 'welcome')->name('welcome');
 
 Route::view('dashboard', 'dashboard')
@@ -15,4 +19,7 @@ Route::view('profile', 'profile')
 Route::view('reservations', 'reservations')
     ->name('reservations');
 
+
+
 require __DIR__.'/auth.php';
+require __DIR__.'/map_route.php';

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <title>Document</title>
     <style>
 
@@ -11,6 +12,17 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
+
+.search-input {
+            width: 300px; /* Adjust width */
+            height: 50px; /* Adjust height */
+            padding: 10px; /* Adjust padding */
+            font-size: 25px; /* Adjust font size */
+            border: 2px solid #ccc; /* Border style */
+            border-radius: 8px; /* Border radius */
+            transition: border-color 0.3s; /* Smooth transition for border color */
+        }
 
 
 .content-thin{
@@ -29,6 +41,13 @@ background-color: rgb(10, 9, 68);
 margin-bottom: 10px;
 object-fit: cover; /* Giữ tỷ lệ ảnh và lấp đầy không gian */
 width: 100%;
+
+display : flex;
+flex-direction:row;
+justify-content: center;
+
+padding-top: 2rem;
+
 }
 .content2
 {
@@ -40,7 +59,7 @@ flex-direction: column;
 }
 
 .Homepage{
-display:flex
+
 justify-content: center;
 align-items: center;
 }
@@ -115,8 +134,16 @@ align-items: center;
     </header>
     <main class="Homepage">
         
-       <div class="content1 ">
+       <div class="content1 pt-16  ">
+        <form class="">   
+           
+            <div class="relative">
+                <input type="searching" id="small-search" class="search-input" placeholder="Searching for a parking lot" required />
+            </div>
+        </form>
+
         
+
 
        </div>
     <div class="content2">
