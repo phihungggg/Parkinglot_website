@@ -55,8 +55,29 @@
         }
     </style>
   
-  <script src="{{ asset('js/OpenLayers.js') }}"></script>
+ 
+
   
+
+  <link rel="stylesheet" href="node_modules/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="node_modules/@geoapify/leaflet-address-search-plugin/dist/L.Control.GeoapifyAddressSearch.min.css">
+
+
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""/>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""></script>
+
+
+  <link rel="stylesheet" href="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.css" />
+  <script src="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.js"></script>
+
+
+ 
 </head>
 <body  onload="init();">
 
@@ -64,113 +85,111 @@
 
  
     <script>
-        function init() {
-          map = new OpenLayers.Map("map");
-          var mapnik         = new OpenLayers.Layer.OSM();
-          var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-          var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
-          var position       = new OpenLayers.LonLat(106.65976955431256, 10.763723871833784).transform( fromProjection, toProjection);
-          var zoom           = 17; 
-  
-          map.addLayer(mapnik);
-          map.setCenter(position, zoom );
-//mat me cai map roi
- //marker1
- //hoi o cty con hien map ma :((
-          var markers = new OpenLayers.Layer.Markers( "Markers" );
-          map.addLayer(markers);
-          var lonLat = new OpenLayers.LonLat( 106.65976955431256 ,10.763723871833784 )
-          .transform(fromProjection, toProjection);
-            var size = new OpenLayers.Size(45, 45);
-            var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-            var icon = new OpenLayers.Icon('{{ asset('images/availableslot.png') }}', size, offset);
-            marker=new OpenLayers.Marker(lonLat, icon)
-            markers.addMarker(marker);
-            marker.events.register("click", marker, function(evt) {
-    console.log("Marker clicked!");
-    OpenLayers.Event.stop(evt); // Optional: Prevents the event from propagating further
-    Livewire.dispatch('markerClicked', { lat: lat, lng: lng });
-});
-//deo hieu
-//marker2
-            var markers2 = new OpenLayers.Layer.Markers( "Markers" );
-          map.addLayer(markers2);
-          var lonLat = new OpenLayers.LonLat( 106.66060917741723 ,10.761078620733292 )
-          .transform(fromProjection, toProjection);
-            var size = new OpenLayers.Size(45, 45);
-            var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-            var icon = new OpenLayers.Icon('{{ asset('images/availableslot.png') }}', size, offset);
-            marker2=new OpenLayers.Marker(lonLat, icon);
-            markers2.addMarker(marker2);
-            marker2.events.register("click", marker, function(evt) {
-    console.log("Marker2 clicked!");
-    OpenLayers.Event.stop(evt); // Optional: Prevents the event from propagating further
-    Livewire.dispatch('markerClicked', { lat: lat, lng: lng });
+      
+
+
+
+        function init()
+        {
+            var map = L.map('map').setView([ 10.771779135654299,106.65766122741186], 17);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+var greenIcon = L.icon({
+    iconUrl: '{{ asset('images/availableslot.png') }}',
+   // shadowUrl: 'leaf-shadow.png',
+
+    iconSize:     [45, 45], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-//marker3
-            var markers3 = new OpenLayers.Layer.Markers( "Markers" );
-          map.addLayer(markers3);
-          var lonLat = new OpenLayers.LonLat( 106.66195345162645 ,10.762378881477494 )
-          .transform(fromProjection, toProjection);
-            var size = new OpenLayers.Size(45, 45);
-            var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-            var icon = new OpenLayers.Icon('{{ asset('images/availableslot.png') }}', size, offset);
-            marker3=new OpenLayers.Marker(lonLat, icon);
-            markers3.addMarker(marker3);
-            marker3.events.register("click", marker, function(evt) {
-    console.log("Marker3 clicked!");
-    OpenLayers.Event.stop(evt); // Optional: Prevents the event from propagating further
-    Livewire.dispatch('markerClicked', { lat: lat, lng: lng });
+var marker = L.marker([10.763723871833784,106.65976955431256],{icon: greenIcon}).addTo(map);
+var marker2 = L.marker([10.761078620733292,106.66060917741723],{icon: greenIcon}).addTo(map);
+var marker3 = L.marker([10.762378881477494,106.66195345162645],{icon: greenIcon}).addTo(map);
+var marker4 = L.marker([10.766211203146504,106.6543467857687],{icon: greenIcon}).addTo(map);
+var marker5 = L.marker([10.770669889748305,106.65629512277314],{icon: greenIcon}).addTo(map);
+var marker6 = L.marker([10.774398028512875,106.66200563634163],{icon: greenIcon}).addTo(map);        
 
 
+var myAPIKey = "db406161c8504f2da04ce0155cd7617d"; // Get an API Key on https://myprojects.geoapify.com
+var mapURL = L.Browser.retina
+  ? `https://maps.geoapify.com/v1/tile/{mapStyle}/{z}/{x}/{y}.png?apiKey=db406161c8504f2da04ce0155cd7617d`
+  : `https://maps.geoapify.com/v1/tile/{mapStyle}/{z}/{x}/{y}@2x.png?apiKey=db406161c8504f2da04ce0155cd7617d`;
 
-
+  const addressSearchControl = L.control.addressSearch(myAPIKey, {
+  position: 'topleft',
+  resultCallback: (selectedAddress) => {
+    console.log(selectedAddress);
+  },
+  suggestionsCallback: (suggestions) => {
+    console.log(suggestions);
+  }
 });
-// me no =))
-/*
-document.addEventListener('livewire:load', function () {
-            Livewire.on('slotStatusChanged', (slotId, status,slotnumber  ) => {
-                // Your logic to change the marker icon based on slotId and status
-               switch ( slotnumber)
-               {
-               case 1:
-                if (status === 1) {
-                    marker.icon.url = = '{{ asset('images/availableslot.png') }}'; // Change icon to occupied
-                } else {
-                    marker.icon.url = = '{{ asset('images/notavaiableslot.png') }}'; // Change icon to available
-                }
-                marker.icon.image.src = marker.icon.url;
-                marker.redraw(); // Redraw the marker to reflect the change
-                break;
-                case 2:
-                if (status === 1) {
-                    marker2.icon.url = '{{ asset('images/availableslot.png') }}'; // Change icon to occupied
-                } else {
-                    marker2.icon.url = '{{ asset('images/notavaiableslot.png') }}'; // Change icon to available
-                }
-                marker2.icon.image.src = marker.icon.url;
-                marker2.redraw(); // Redraw the marker to reflect the change
-                break;
+map.addControl(addressSearchControl);
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+}
+//function addmarker(float x, float y)
+//{
+   // var marker = L.marker([x,y]).addTo(map);
+//}
+//marker1
 
-                case 3:
-                if (status === 1) {
-                    marker3.icon.url = '{{ asset('images/availableslot.png') }}'; // Change icon to occupied
-                } else {
-                    marker3.icon.url = '{{ asset('images/notavaiableslot.png') }}'; // Change icon to available
-                }
-                marker3.icon.image.src = marker.icon.url;
-                marker3.redraw(); // Redraw the marker to reflect the change
-                break;
+   // addmarker(10.763723871833784,106.65976955431256);
+   // addmarker(10.761078620733292,106.66060917741723);
+  //  addmarker(10.762378881477494,106.66195345162645);
+   // addmarker(10.766211203146504,106.6543467857687);
+ //   addmarker(10.770669889748305,106.65629512277314);
+   // addmarker(10.774398028512875,106.66200563634163);
 
-            }
-            });
-        });
+//var marker = L.marker([10.763723871833784, 106.65766122741186]).addTo(map);
+
         
-        }*/
-} //quen me no cai ngoac :)
+
       </script>
-    <livewire:maps>
+   <div id="reservation-menu">
+    <h2>Reservation</h2>
+    
+    <div id="location-options">
+        <label for="location">Your current location:</label>
+        <input type="text" id="location" placeholder="Fill in your location">
+    
+        <button id="use-gps">Use GPS</button>
+        <button id="mark-on-map">Mark on Map</button>
+    </div>
+
+    <label for="parking-slot">Select parking slot</label>
+    <select id="parking-slot">
+        <option value="slot0"> none </option>
+        <option value="slot1"> 3/2 </option>
+        <option value="slot2">Ly Thuong Kiet</option>
+        <option value="slot3">Nguyen Kim</option>
+        <option value="slot4">Le Dai Hanh</option>
+        <option value="slot5">Lu Gia</option>
+        <option value="slot6">To Hien Thanh</option>
+        <!-- Add more slots as needed -->
+    </select>
+
+    <label for="start-time">From:</label>
+    <input type="datetime-local" id="start-time">
+
+    <label for="end-time">To:</label>
+    <input type="datetime-local" id="end-time">
+
+    <label for="duration">Duration (hour):</label>
+    <input type="number" id="duration" min="1" placeholder="Số giờ">
+
+    <div id="something" style="display:flex; margin-top:100px  ">
+    <button style=" margin-left:105px " type="button" onclick="reserveSpot()">Reserve</button>
+    <button style=" margin-left:25px " type="button" onclick="reserveSpot()">Show the way</button>
+    </div>
+   
+</div>
   
 </body>
 </html>
