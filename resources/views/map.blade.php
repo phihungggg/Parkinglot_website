@@ -74,8 +74,9 @@
   
           map.addLayer(mapnik);
           map.setCenter(position, zoom );
-
-
+//mat me cai map roi
+ //marker1
+ //hoi o cty con hien map ma :((
           var markers = new OpenLayers.Layer.Markers( "Markers" );
           map.addLayer(markers);
           var lonLat = new OpenLayers.LonLat( 106.65976955431256 ,10.763723871833784 )
@@ -88,9 +89,10 @@
             marker.events.register("click", marker, function(evt) {
     console.log("Marker clicked!");
     OpenLayers.Event.stop(evt); // Optional: Prevents the event from propagating further
+    Livewire.dispatch('markerClicked', { lat: lat, lng: lng });
 });
-
-
+//deo hieu
+//marker2
             var markers2 = new OpenLayers.Layer.Markers( "Markers" );
           map.addLayer(markers2);
           var lonLat = new OpenLayers.LonLat( 106.66060917741723 ,10.761078620733292 )
@@ -103,9 +105,10 @@
             marker2.events.register("click", marker, function(evt) {
     console.log("Marker2 clicked!");
     OpenLayers.Event.stop(evt); // Optional: Prevents the event from propagating further
+    Livewire.dispatch('markerClicked', { lat: lat, lng: lng });
 });
 
-
+//marker3
             var markers3 = new OpenLayers.Layer.Markers( "Markers" );
           map.addLayer(markers3);
           var lonLat = new OpenLayers.LonLat( 106.66195345162645 ,10.762378881477494 )
@@ -118,11 +121,54 @@
             marker3.events.register("click", marker, function(evt) {
     console.log("Marker3 clicked!");
     OpenLayers.Event.stop(evt); // Optional: Prevents the event from propagating further
-});
+    Livewire.dispatch('markerClicked', { lat: lat, lng: lng });
 
-            
+
+
+
+});
+// me no =))
+/*
+document.addEventListener('livewire:load', function () {
+            Livewire.on('slotStatusChanged', (slotId, status,slotnumber  ) => {
+                // Your logic to change the marker icon based on slotId and status
+               switch ( slotnumber)
+               {
+               case 1:
+                if (status === 1) {
+                    marker.icon.url = = '{{ asset('images/availableslot.png') }}'; // Change icon to occupied
+                } else {
+                    marker.icon.url = = '{{ asset('images/notavaiableslot.png') }}'; // Change icon to available
+                }
+                marker.icon.image.src = marker.icon.url;
+                marker.redraw(); // Redraw the marker to reflect the change
+                break;
+                case 2:
+                if (status === 1) {
+                    marker2.icon.url = '{{ asset('images/availableslot.png') }}'; // Change icon to occupied
+                } else {
+                    marker2.icon.url = '{{ asset('images/notavaiableslot.png') }}'; // Change icon to available
+                }
+                marker2.icon.image.src = marker.icon.url;
+                marker2.redraw(); // Redraw the marker to reflect the change
+                break;
+
+                case 3:
+                if (status === 1) {
+                    marker3.icon.url = '{{ asset('images/availableslot.png') }}'; // Change icon to occupied
+                } else {
+                    marker3.icon.url = '{{ asset('images/notavaiableslot.png') }}'; // Change icon to available
+                }
+                marker3.icon.image.src = marker.icon.url;
+                marker3.redraw(); // Redraw the marker to reflect the change
+                break;
+
+            }
+            });
+        });
         
-        }
+        }*/
+} //quen me no cai ngoac :)
       </script>
     <livewire:maps>
   

@@ -27,5 +27,16 @@ class Maps extends Component
         $this->latitud = $lat;
         $this->longitud= $lng;
         $this->message = "Marker clicked at Latitude: {$this->latitud}, Longitude: {$this->longitud}";
+
+       
+
+    }
+
+    public function dosomething2()
+    {
+        $value=1;
+
+        $this->dispatchBrowserEvent('name-updated', ['newName' => $value]);
+
     }
 }   
