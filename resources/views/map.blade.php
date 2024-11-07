@@ -160,6 +160,13 @@ var currentRoute = null;
 
 
 
+        var redIcon = L.icon({
+            iconUrl: 'https://example.com/red-icon.png', // Replace with the actual URL or path to the red marker
+            iconSize: [40, 40], // Adjust size as needed
+            iconAnchor: [20, 40],
+            popupAnchor: [0, -40]
+        });
+
         var greenIcon = L.icon({
     iconUrl: '{{ asset('images/availableslot.png') }}',
     //shadowUrl: '{{ asset('images/availableslot.png') }}',
@@ -300,12 +307,17 @@ function guiding()
 if (currentRoute) {
             map.removeControl(currentRoute);
         }
+        //var userMarker = L.marker([search_lat, search_long], { icon: redIcon }).addTo(map);
+
         currentRoute=L.Routing.control({
 				waypoints: [
                     L.latLng(search_lat,search_long),
 					L.latLng(current_parkingslot),
 					
 				]
+               
+
+                
 			}).addTo(map);
 
 
