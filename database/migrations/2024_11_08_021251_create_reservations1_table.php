@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('reservations');
-        Schema::create('reservations', function (Blueprint $table) {
-            //$table->id();
-            $table->timestamps();
-            $table->unsignedInteger('Reservation_id');
+        Schema::create('reservations1', function (Blueprint $table) {
             $table->unsignedInteger('Slot_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger( 'Reservation_id');
+            $table->timestamp('Reservation_time');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('Slot_id')->references('slot id')->on('slots');
+            $table->foreign('Slot_id')->references('slot_id')->on('slots1'); // Updated to `slot_id`
             $table->primary(['Reservation_id']);
-            $table->time('Reservation_time');
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservations');
+        Schema::dropIfExists('reservations1');
     }
 };

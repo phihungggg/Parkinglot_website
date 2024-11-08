@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('maps', function (Blueprint $table) {
-           // $table->id();
+        Schema::create('maps1', function (Blueprint $table) {
+             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->float('current_latitude');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->float('destination_latitude');
             $table->float('destination_longtitude');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->primary(['user_id']);
+            //$table->primary(['user_id']);
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('maps');
+        Schema::dropIfExists('maps1');
     }
 };

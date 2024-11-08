@@ -5,6 +5,9 @@ namespace App\Jobs;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use PhpMqtt\Client\Facades\MQTT;
+use App\Models\Slot;
+use Illuminate\Support\Facades\DB;
+
 class DoMqttsubscribe implements ShouldQueue
 {
     use Queueable;
@@ -27,7 +30,7 @@ class DoMqttsubscribe implements ShouldQueue
         $mqtt = Mqtt::connection();
 
         if ($mqtt->isConnected()) {
-            $mqtt->publish('something/st', 'test', 0);
+           // $mqtt->publish('something/st', 'test', 0);
 
             // Subscribe to the topic
             $mqtt->subscribe('v3/parkinglot-greenstream@ttn/devices/slot-1/up',
@@ -46,6 +49,18 @@ class DoMqttsubscribe implements ShouldQueue
 
                         $lastCharacter = substr($decodedPayload, -1);
                         $lastNumber = (int)$lastCharacter;
+
+                        $slot = Slot::where('slot_id', 0)->first();
+DB::beginTransaction();
+try {
+    $slot->slot_status = $lastNumber;
+    $slot->save();
+    DB::commit();
+} catch (\Exception $e) {
+    DB::rollBack();
+    echo "Failed to update slot status: " . $e->getMessage();
+}
+
                         echo sprintf("\n something %d ",$lastNumber);
                     } else 
                         echo "No decoded payload found.";

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\MQTTdoit;
+//use App\Models\Slot;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,5 +24,13 @@ class AppServiceProvider extends ServiceProvider
 
 
         $something->dosomething();
+
+
+
+
+
+
+
+
     }
 }

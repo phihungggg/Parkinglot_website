@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('slots', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('Slot name');
-            $table->unsignedInteger('Slot status');
-            $table->float('Slot lat');
-            $table->float('slot long');
-            
+        Schema::table('maps1', function (Blueprint $table) {
+            // Drop existing foreign key constraints
+            $table->dropForeign(['user_id']);
+           
+
+            // Add foreign key constraints with cascade delete
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+           
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('slots');
+        //
     }
 };

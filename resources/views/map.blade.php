@@ -308,7 +308,7 @@ if (currentRoute) {
             map.removeControl(currentRoute);
         }
         //var userMarker = L.marker([search_lat, search_long], { icon: redIcon }).addTo(map);
-
+        map.setView([search_lat,search_long],current_zoom);            
         currentRoute=L.Routing.control({
 				waypoints: [
                     L.latLng(search_lat,search_long),
@@ -319,8 +319,12 @@ if (currentRoute) {
 
                 
 			}).addTo(map);
-
-
+/*
+            currentRoute.on('routesfound', function(e) {
+    var routes = e.routes;
+    // Fit the map to the bounds of the first route
+    map.fitBounds(routes[0].bounds);
+});*/
 
 
 
